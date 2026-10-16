@@ -1,0 +1,19 @@
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ALL_CHALLENGES } from '../../data/campaign.data';
+import { IconComponent } from '../../shared/icon.component';
+
+@Component({
+  imports:[RouterLink,IconComponent],
+  template:`<div class="page"><header class="page-header"><div><p class="eyebrow">Speedrun arena</p><h1>Fast hands. Clean inputs.</h1><p class="subtitle">Time matters here, but precision, mistakes, hints, and keystroke efficiency still shape your rating.</p></div></header>
+  <section class="arena card"><div class="speed-icon"><app-icon name="Timer" [size]="40" /></div><div><span class="pill">{{ difficulty().toUpperCase() }}</span><h2>{{ selected().title }}</h2><p>{{ selected().objective }}</p><div class="targets"><span><b>{{ targetTime() }}s</b> target</span><span><b>{{ selected().referenceKeystrokes }}</b> reference keys</span><span><b>{{ selected().xpReward }}</b> base XP</span></div></div><a class="btn primary" [routerLink]="['/challenge',selected().id]">Start run <app-icon name="Play" [size]="16" /></a></section>
+  <div class="difficulty"><button [class.active]="difficulty()==='beginner'" (click)="choose('beginner')">Beginner</button><button [class.active]="difficulty()==='intermediate'" (click)="choose('intermediate')">Intermediate</button><button [class.active]="difficulty()==='advanced'" (click)="choose('advanced')">Advanced</button></div>
+  <div class="rules"><article class="card"><app-icon name="Crosshair" /><h3>Accuracy first</h3><p>Arrow and mouse bypasses count as mistakes in guided motion rounds.</p></article><article class="card"><app-icon name="Keyboard" /><h3>Every key counts</h3><p>Physical editor input is counted, including mode switches and corrections.</p></article><article class="card"><app-icon name="Medal" /><h3>Beat yourself</h3><p>Ratings compare against a verified reference—not an unproven global optimum.</p></article></div></div>`,
+  styles:`.arena{min-height:260px;display:grid;grid-template-columns:110px 1fr auto;align-items:center;gap:25px;padding:34px;background:radial-gradient(circle at 10% 50%,rgba(255,101,122,.12),transparent 25%),var(--bg-secondary)}.speed-icon{width:90px;height:90px;display:grid;place-items:center;border-radius:25px;color:#ff7186;background:rgba(255,101,122,.1);box-shadow:inset 0 0 25px rgba(255,101,122,.08)}.arena h2{margin:13px 0 7px;font-size:28px}.arena p{color:var(--text-secondary)}.targets{display:flex;gap:25px}.targets span{color:var(--text-muted);font-size:11px}.targets b{color:var(--text-primary)}.difficulty{display:flex;gap:6px;margin:20px 0}.difficulty button{padding:9px 14px;border:1px solid var(--border-primary);border-radius:8px;color:var(--text-secondary);background:transparent;cursor:pointer}.difficulty .active{color:#07111d;border-color:var(--accent-primary);background:var(--accent-primary);font-weight:800}.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.rules article{padding:22px;box-shadow:none}.rules app-icon{color:var(--accent-primary)}.rules h3{margin:14px 0 7px}.rules p{margin:0;color:var(--text-secondary);font-size:12px;line-height:1.55}@media(max-width:800px){.arena{grid-template-columns:1fr}.speed-icon{width:64px;height:64px}.targets{flex-wrap:wrap}.rules{grid-template-columns:1fr}}`,
+  changeDetection:ChangeDetectionStrategy.OnPush,
+})
+export class SpeedrunPage{
+  readonly difficulty=signal<'beginner'|'intermediate'|'advanced'>('beginner');readonly selected=signal(ALL_CHALLENGES.find(item=>item.id==='ch2-10')!);
+  targetTime(){return this.difficulty()==='beginner'?30:this.difficulty()==='intermediate'?22:15}
+  choose(value:'beginner'|'intermediate'|'advanced'){this.difficulty.set(value);const choices=ALL_CHALLENGES.filter(item=>item.difficulty===value&&item.order===10);this.selected.set(choices[Math.floor(Math.random()*choices.length)]??ALL_CHALLENGES[0]);}
+}
