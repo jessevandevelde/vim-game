@@ -42,3 +42,14 @@ test('persists completed campaign progress after reload', async ({ page }) => {
   await page.reload();
   await expect(page.getByText('25 XP', { exact: true }).first()).toBeVisible();
 });
+
+test('plays Vim Snake with home-row controls', async ({ page }) => {
+  await page.goto('/snake');
+  await expect(page.getByRole('heading', { name: 'Vim Snake' })).toBeVisible();
+  await page.keyboard.press('l');
+  await expect(page.getByText('Running', { exact: true })).toBeVisible();
+  await page.keyboard.press('Space');
+  await expect(page.getByText('Paused', { exact: true }).first()).toBeVisible();
+  await page.keyboard.press('r');
+  await expect(page.getByText('Ready', { exact: true })).toBeVisible();
+});

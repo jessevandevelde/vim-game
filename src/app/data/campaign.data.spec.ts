@@ -3,7 +3,7 @@ import { ALL_CHALLENGES, CHAPTERS, dailyChallenge, localDateKey } from './campai
 describe('campaign data', () => {
   it('contains nine complete ten-lesson chapters', () => {
     expect(CHAPTERS).toHaveLength(9);
-    expect(CHAPTERS.every(chapter => chapter.challenges.length === 10)).toBe(true);
+    expect(CHAPTERS.every((chapter) => chapter.challenges.length === 10)).toBe(true);
     expect(ALL_CHALLENGES).toHaveLength(90);
   });
 
@@ -14,6 +14,10 @@ describe('campaign data', () => {
   });
 
   it('gives every challenge a playable validation rule and hint', () => {
-    expect(ALL_CHALLENGES.every(challenge => challenge.validation.length > 0 && challenge.hints.length > 0)).toBe(true);
+    expect(
+      ALL_CHALLENGES.every(
+        (challenge) => challenge.validation.length > 0 && challenge.hints.length > 0,
+      ),
+    ).toBe(true);
   });
 });

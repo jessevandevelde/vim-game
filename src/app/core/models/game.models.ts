@@ -1,8 +1,16 @@
 export type VimMode = 'normal' | 'insert' | 'visual' | 'replace';
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
-export interface CursorPosition { line: number; column: number; }
-export interface SelectionRange { startLine: number; startColumn: number; endLine: number; endColumn: number; }
+export interface CursorPosition {
+  line: number;
+  column: number;
+}
+export interface SelectionRange {
+  startLine: number;
+  startColumn: number;
+  endLine: number;
+  endColumn: number;
+}
 
 export type ChallengeRule =
   | { type: 'cursor-position'; target: CursorPosition }
@@ -86,4 +94,7 @@ export interface ChallengeSnapshot {
   blockedInput: boolean;
 }
 
-export interface ValidationResult { complete: boolean; messages: string[]; }
+export interface ValidationResult {
+  complete: boolean;
+  messages: string[];
+}

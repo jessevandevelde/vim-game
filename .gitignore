@@ -30,7 +30,7 @@ yarn-error.log
 .history/*
 
 # Miscellaneous
-/.angular/cache
+/.angular/
 .sass-cache/
 /connect.lock
 /coverage
@@ -40,6 +40,14 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Personal files
+/CV_Jesse_van_de_Velde.pdf
 
 # System files
 .DS_Store

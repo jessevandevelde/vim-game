@@ -21,6 +21,8 @@ describe('GameStateService', () => {
   });
 
   it('calculates progressively increasing level thresholds', () => {
-    expect(service.xpForLevel(3) - service.xpForLevel(2)).toBeGreaterThan(service.xpForLevel(2) - service.xpForLevel(1));
+    expect(service.xpForLevel(3) - service.xpForLevel(2)).toBeGreaterThan(
+      service.xpForLevel(2) - service.xpForLevel(1),
+    );
   });
 });

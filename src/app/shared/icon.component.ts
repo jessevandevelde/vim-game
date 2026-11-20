@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, input, viewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  input,
+  viewChild,
+} from '@angular/core';
 import { createElement, IconNode, icons } from 'lucide';
 
 @Component({
@@ -14,6 +21,9 @@ export class IconComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const icon = icons[this.name() as keyof typeof icons] as IconNode | undefined;
-    if (icon) this.host().nativeElement.replaceChildren(createElement(icon, { width: this.size(), height: this.size(), 'stroke-width': 2 }));
+    if (icon)
+      this.host().nativeElement.replaceChildren(
+        createElement(icon, { width: this.size(), height: this.size(), 'stroke-width': 2 }),
+      );
   }
 }
